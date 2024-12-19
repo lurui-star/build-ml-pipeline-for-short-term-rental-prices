@@ -32,5 +32,6 @@ entry_points:
         python run.py   --input_artifact {input_artifact} \
                         --output_artifact_name {output_artifact_name} \
                         --output_artifact_type {output_artifact_type} \
+                        --output_description{output_artifact_description} \
                         --min_price {min_price} \
                         --max_price {max_price} 
