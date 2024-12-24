@@ -26,7 +26,7 @@ pip install mlflow
 ## Run Pipeline 
 ```bash
 mlflow run https://github.com/lurui-star/build-ml-pipeline-for-short-term-rental-prices.git \
-  -v 1.0.0 \
+  -v 1.0.1 \
   -P hydra_options="etl.sample='sample2.csv'"
 ```
 ## Run Component of Pipeline 
