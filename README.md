@@ -1,4 +1,4 @@
-# Build an ML Pipeline for Short-Term Rental Prices in NYC
+pipel# Build an ML Pipeline for Short-Term Rental Prices in NYC
 
 This project builds a machine learning model to predict the typical price of a given short-term rental property based on the prices of similar properties. The company receives new data in bulk every week, and the model needs to be retrained on a weekly basis. Therefore, an end-to-end pipeline has been developed to automate this process, ensuring it can be reused for future data updates.
 
@@ -9,7 +9,8 @@ This project builds a machine learning model to predict the typical price of a g
 - Linux environment (may be required on Windows, use WSL if needed)
 
 ## Pipeline Structure
-<img src="Screenshot 2024-12-24 at 14 23 11/>
+
+![pipeline](https://github.com/user-attachments/assets/9bb322fc-3a4d-4c1c-9ff5-edafc7e637ce)
 
 ## Dependencies
 
