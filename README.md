@@ -12,13 +12,23 @@ This project builds a machine learning model to predict the typical price of a g
 
 This project uses the `mlflow` library, which handles package management and environment isolation for the pipeline. All required dependencies will be installed automatically within the environment managed by `mlflow`.
 
-### Installation
+## Installation
 
 To install `mlflow`, use the following command:
 
 ```bash
 pip install mlflow
-
+```
+## Run Pipeline 
+```bash
 mlflow run https://github.com/lurui-star/build-ml-pipeline-for-short-term-rental-prices.git \
   -v 1.0.0 \
   -P hydra_options="etl.sample='sample2.csv'"
+```
+## Run Component of Pipeline 
+```bash
+mlflow run . -P hydra_options="main.steps=train_random_forest"
+```
+## License
+
+Distributed under the MIT License. See [LICENSE](./LICENSE) for more information.
