@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-Performs basic cleaning on the data and save the results in Weights & Biases
+Download from W&B the raw dataset and apply basic data cleaning, exporting the result to a new artifact
 """
 import argparse
 import logging
@@ -21,33 +21,33 @@ def go(args):
     # Download input artifact. This will also log that this script is using this
     # particular version of the artifact
     # artifact_local_path = run.use_artifact(args.input_artifact).file()
-    # Step I: Read artifact
+    # Read artifact
     logger.info(f"Downloading  {args.input_artifact} from Weights&Biases to temp dir")
-    data_path = run.use_artifact(args.input_artifact).file()
-    df= pd.read_csv(data_path)
+    artifact_path = run.use_artifact(args.input_artifact).file()
+    df= pd.read_csv(artifact_path)
     
-    # Step II: Start clearning 
+    # Drop duplicates
     logger.info("Dropping duplicates")
     df = df.drop_duplicates().reset_index(drop=True)
-    # drop outliers 
+    # Drop outliers 
     logger.info(f'Drop outliers regarding min {args.min_price}, max {args.max_price} price thresholds')
     min_price = args.min_price
     max_price = args.max_price
     idx = df['price'].between(min_price, max_price)
-    df_clean = df[idx].copy()
+    df = df[idx].copy()
 
-    # convert 'last_review' to datetime
+    # Convert 'last_review' to datetime
     logger.info('Convert feature "last_review" to datetime type')
-    df_clean['last_review'] = pd.to_datetime(df_clean['last_review'])
+    df['last_review'] = pd.to_datetime(df['last_review'])
     
-    # drop rows in the dataset that are not in the proper geolocation
+    # Drop rows in the dataset that are not in the proper geolocation
     logger.info('Drop rows in the dataset that are not in the proper geolocation')
-    idx = df_clean['longitude'].between(-74.25, -73.50) & df_clean['latitude'].between(40.5, 41.2)
-    df_clean = df_clean[idx].copy()
+    idx = df['longitude'].between(-74.25, -73.50) & df['latitude'].between(40.5, 41.2)
+    df= df[idx].copy()
     
-    # Step III: Save cleaned dataframe
+    # Save cleaned dataframe
     logger.info(f'Save cleaned dataframe to {args.output_artifact_name}')
-    df_clean.to_csv(args.output_artifact_name, index=False)
+    df.to_csv(args.output_artifact_name, index=False)
 
     # log artifact to Weights & Biases
     logger.info(f'W&B logging artifact {args.output_artifact_name}')
@@ -75,10 +75,21 @@ if __name__ == "__main__":
     parser.add_argument(
         "--output_artifact_name", 
         type=str,
-        help='Output file name (e.g. cleaned_data.csv)',
+        help='Output file name ',
         required=True
     )
-
+    parser.add_argument(
+        '--output_artifact_type', 
+        type=str,
+        help='Type of the output file',
+        required=True
+    )
+    parser.add_argument(
+        "--output_artifact_description",
+        type=str,
+        help="Description of the output artifact",
+        required=True
+    )
     parser.add_argument(
         '--min_price', 
         type=float,
