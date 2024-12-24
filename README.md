@@ -8,6 +8,9 @@ This project builds a machine learning model to predict the typical price of a g
 - Jupyter Notebook (for interactive development)
 - Linux environment (may be required on Windows, use WSL if needed)
 
+## Pipeline Structure
+[Screenshot 2024-12-24 at 14 23 11](https://github.com/user-attachments/assets/df0b1544-e2b2-404e-8d48-c0eded4e0cd2)
+
 ## Dependencies
 
 This project uses the `mlflow` library, which handles package management and environment isolation for the pipeline. All required dependencies will be installed automatically within the environment managed by `mlflow`.
